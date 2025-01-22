@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS fredsite;
+CREATE USER IF NOT EXISTS 'fredsite'@'%' IDENTIFIED BY 'fredsite';
+GRANT ALL PRIVILEGES ON fredsite.* TO 'fredsite'@'%';
+FLUSH PRIVILEGES;

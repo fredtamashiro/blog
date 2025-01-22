@@ -15,15 +15,20 @@ RUN apt install -y vim
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt install -y nodejs
 
-WORKDIR /var/www/blog
+# Install MySQL client
+RUN apt-get install -y default-mysql-client
 
+WORKDIR /var/www/fredsite
+
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN wget https://get.symfony.com/cli/installer -O - | bash
-RUN curl -sS https://get.symfony.com/cli/installer | bash
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # Copie os arquivos da aplicação
-COPY . /var/www/blog
+COPY . /var/www/fredsite
 
 # Instale as dependências do Node.js e execute o build do Vite
 # RUN cd /var/www/blog && npm install && npm run build
